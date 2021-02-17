@@ -31,7 +31,7 @@ export default function OrderScreen() {
                 script.onload = () => {
                     setSdkReady(true)
                 }
-                document.body.appendChild(script)
+                document.body.append(script)
             })
         }
 
@@ -144,8 +144,7 @@ export default function OrderScreen() {
                                 !order?.isPaid && (
                                     <li>
                                         {
-                                            !sdkReady
-                                                ? (<LoadingBox />)
+                                            !sdkReady ? (<LoadingBox />)
                                                 : <>
                                                     {errorPay && <MessageBox variant="danger">{errorPay}</MessageBox>}
                                                     {loadingPay && <LoadingBox />}

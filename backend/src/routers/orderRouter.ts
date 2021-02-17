@@ -11,7 +11,6 @@ orderRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
 }))
 
 orderRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
-    console.log(req)
     const orders = await Order.find({
         user: req.user._id,
     })
@@ -59,6 +58,16 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
         }
         const updatedOrder = await order.save()
         res.json({ message: 'Order Paid', updatedOrder })
+    } else {
+        res.status(404).json({ message: 'Order not found' })
+    }
+}))
+
+orderRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id)
+    if (order) {
+        const deleteOrder = await order.remove()
+        res.json({ message: 'Order deleted', order: deleteOrder })
     } else {
         res.status(404).json({ message: 'Order not found' })
     }

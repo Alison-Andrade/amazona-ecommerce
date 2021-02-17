@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { listOrders } from '../actions/orderActions'
+import { deleteOrder, listOrders } from '../actions/orderActions'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
+import { ORDER_DELETE_RESET } from '../constants/orderConstants'
 import { RootState } from '../store'
 
 export default function OrderListScreen() {
@@ -11,31 +12,42 @@ export default function OrderListScreen() {
     const dispatch = useDispatch()
     const orderList = useSelector((state: RootState) => state.orderList)
     const { loading, error, orders } = orderList
+    const orderDelete = useSelector((state: RootState) => state.orderDelete)
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = orderDelete
 
     useEffect(() => {
+        dispatch({ type: ORDER_DELETE_RESET })
         dispatch(listOrders())
-    }, [dispatch])
+    }, [dispatch, successDelete])
 
     const deleteHandler = (orderId?: string) => {
-        // TODO: Delete order
+        if (orderId) {
+            if (window.confirm('Are you sure you want to delete?')) {
+                dispatch(deleteOrder(orderId))
+            }
+        }
     }
 
     return (
         <div>
             <h1>Order History</h1>
+            {loadingDelete && <LoadingBox />}
+            {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
             {
                 loading ? <LoadingBox /> :
                     error ? <MessageBox variant="danger">{error}</MessageBox> :
                         (
                             <table className="table">
                                 <thead>
-                                    <th>ID</th>
-                                    <th>USER</th>
-                                    <th>DATE</th>
-                                    <th>TOTAL</th>
-                                    <th>PAID</th>
-                                    <th>DELIVERED</th>
-                                    <th>ACTIONS</th>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>USER</th>
+                                        <th>DATE</th>
+                                        <th>TOTAL</th>
+                                        <th>PAID</th>
+                                        <th>DELIVERED</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     {
