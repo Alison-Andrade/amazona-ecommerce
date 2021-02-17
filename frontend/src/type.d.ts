@@ -68,7 +68,7 @@ type OrderState = {
 	error?: string
 }
 
-type OrderMineListState = {
+type OrderListState = {
 	orders?: Order[]
 	loading?: boolean
 	error?: string
@@ -76,6 +76,7 @@ type OrderMineListState = {
 
 interface Order {
 	_id?: string
+	user?: User
 	shippingAddress?: AdressInterface
 	isPaid?: boolean
 	isDelivered?: boolean

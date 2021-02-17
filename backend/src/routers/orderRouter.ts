@@ -1,21 +1,26 @@
 import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import Order from '../models/orderModel'
-import { isAuth } from '../utils'
+import { isAdmin, isAuth } from '../utils'
 
 const orderRouter = express.Router()
+
+orderRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({}).populate('user', 'name')
+    res.json(orders)
+}))
 
 orderRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
     console.log(req)
     const orders = await Order.find({
-        user:req.user._id,
+        user: req.user._id,
     })
     res.json(orders)
 }))
 
-orderRouter.post('/', isAuth, expressAsyncHandler(async (req, res) =>{
-    if(req.body.orderItems.length === 0){
-        res.status(400).json({message: 'Cart is empty'})
+orderRouter.post('/', isAuth, expressAsyncHandler(async (req, res) => {
+    if (req.body.orderItems.length === 0) {
+        res.status(400).json({ message: 'Cart is empty' })
     } else {
         const order = new Order({
             orderItems: req.body.orderItems,
@@ -34,16 +39,16 @@ orderRouter.post('/', isAuth, expressAsyncHandler(async (req, res) =>{
 
 orderRouter.get('/:id', isAuth, expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
-    if(order) {
+    if (order) {
         res.json(order)
     } else {
-        res.json({ message: 'Order Not Found'})
+        res.json({ message: 'Order Not Found' })
     }
 }))
 
 orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
-    if(order) {
+    if (order) {
         order.isPaid = true
         order.paidAt = Date.now()
         order.paymentResult = {
@@ -53,9 +58,9 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
             email_address: req.body.email_address,
         }
         const updatedOrder = await order.save()
-        res.json({message: 'Order Paid', updatedOrder})
+        res.json({ message: 'Order Paid', updatedOrder })
     } else {
-        res.status(404).json({message: 'Order not found'})
+        res.status(404).json({ message: 'Order not found' })
     }
 }))
 

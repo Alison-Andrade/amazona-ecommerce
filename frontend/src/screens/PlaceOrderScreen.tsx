@@ -13,12 +13,12 @@ export default function PlaceOrderScreen() {
     const cart = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
 
-    if(!cart.shippingAddress.address) {
+    if (!cart.shippingAddress.address) {
         history.push('/payment')
     }
 
     const orderCreate = useSelector((state: RootState) => state.orderCreate)
-    const {loading, success, error, order} = orderCreate
+    const { loading, success, error, order } = orderCreate
     const toPrice = (num: number) => Number(num.toFixed(2))
     cart.itemsPrice = toPrice(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0))
     cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10)
@@ -28,13 +28,13 @@ export default function PlaceOrderScreen() {
     const placeOrderHandler = () => {
         const order: Order = cart
         order.orderItems = cart.cartItems
-        dispatch(createOrder({...cart, order}))
+        dispatch(createOrder({ ...cart, order }))
     }
 
     useEffect(() => {
-        if(success && order !== undefined) {
+        if (success && order !== undefined) {
             history.push(`/order/${order._id}`)
-            dispatch({type: ORDER_CREATE_SUCCESS})
+            dispatch({ type: ORDER_CREATE_SUCCESS })
         }
     }, [dispatch, order, history, success])
     return (
@@ -69,7 +69,7 @@ export default function PlaceOrderScreen() {
                                             <li key={item.product}>
                                                 <div className="row">
                                                     <div>
-                                                        <img src={item.image} alt={item.name} className="small"/>
+                                                        <img src={item.image} alt={item.name} className="small" />
                                                     </div>
                                                     <div className="min-30">
                                                         <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -115,10 +115,10 @@ export default function PlaceOrderScreen() {
                                 </div>
                             </li>
                             <li>
-                                <button onClick={placeOrderHandler} className="primary block" disabled={cart.cartItems.length === 0}>{ loading ? <LoadingBox /> : 'Place Order'}</button>
+                                <button onClick={placeOrderHandler} className="primary block" disabled={cart.cartItems.length === 0}>{loading ? <LoadingBox /> : 'Place Order'}</button>
                             </li>
                             <li>
-                                { error && <MessageBox variant="danger">{error}</MessageBox> }
+                                {error && <MessageBox variant="danger">{error}</MessageBox>}
                             </li>
                         </ul>
                     </div>

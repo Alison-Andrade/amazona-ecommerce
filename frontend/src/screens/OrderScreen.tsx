@@ -36,7 +36,7 @@ export default function OrderScreen() {
         }
 
         if (!order?._id || successPay || (order && order._id !== orderId)) {
-            dispatch({type: ORDER_PAY_RESET})
+            dispatch({ type: ORDER_PAY_RESET })
             dispatch(detailsOrder(orderId))
         } else {
             if (!order.isPaid) {
@@ -67,8 +67,8 @@ export default function OrderScreen() {
                                     <strong>Address:</strong> {order?.shippingAddress?.address}, {order?.shippingAddress?.city}, {order?.shippingAddress?.postalCode}, {order?.shippingAddress?.country}
                                 </p>
                                 {
-                                    order?.isDelivered 
-                                        ? <MessageBox variant="success">Delivered at {order.deliveredAt}</MessageBox> 
+                                    order?.isDelivered
+                                        ? <MessageBox variant="success">Delivered at {order.deliveredAt}</MessageBox>
                                         : <MessageBox variant="danger">Not Delivered</MessageBox>
                                 }
                             </div>
@@ -80,8 +80,8 @@ export default function OrderScreen() {
                                     <strong>Method:</strong> {order?.paymentMethod} <br />
                                 </p>
                                 {
-                                    order?.isPaid 
-                                        ? <MessageBox variant="success">Paid at {order.paidAt}</MessageBox> 
+                                    order?.isPaid
+                                        ? <MessageBox variant="success">Paid at {order.paidAt}</MessageBox>
                                         : <MessageBox variant="danger">Not Paid</MessageBox>
                                 }
                             </div>
@@ -95,7 +95,7 @@ export default function OrderScreen() {
                                             <li key={item.product}>
                                                 <div className="row">
                                                     <div>
-                                                        <img src={item.image} alt={item.name} className="small"/>
+                                                        <img src={item.image} alt={item.name} className="small" />
                                                     </div>
                                                     <div className="min-30">
                                                         <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -145,11 +145,11 @@ export default function OrderScreen() {
                                     <li>
                                         {
                                             !sdkReady
-                                                ? (<LoadingBox />) 
+                                                ? (<LoadingBox />)
                                                 : <>
                                                     {errorPay && <MessageBox variant="danger">{errorPay}</MessageBox>}
                                                     {loadingPay && <LoadingBox />}
-                                                    <PayPalButton 
+                                                    <PayPalButton
                                                         amount={order?.totalPrice}
                                                         onSuccess={successPaymentHandler}
                                                     ></PayPalButton>
