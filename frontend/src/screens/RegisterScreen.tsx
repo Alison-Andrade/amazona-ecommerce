@@ -17,11 +17,11 @@ export default function RegisterScreen() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const userRegister = useSelector((state: RootState) => state.userRegister)
     const { userInfo, loading, error } = userRegister
-    
+
     const submitHandler = (e: FormEvent) => {
         e.preventDefault()
-        password !== confirmPassword 
-            ? alert('Password and confirm password are not match') 
+        password !== confirmPassword
+            ? alert('Password and confirm password are not match')
             : dispatch(register(name, email, password))
     }
 
@@ -31,7 +31,7 @@ export default function RegisterScreen() {
         }
     }, [history, redirect, userInfo])
 
-    return(
+    return (
         <div>
             <form className="form" onSubmit={submitHandler}>
                 <div>
@@ -41,22 +41,22 @@ export default function RegisterScreen() {
                 <div>
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" placeholder="Enter name" required
-                        onChange={ e => setName(e.target.value)}/>
+                        onChange={e => setName(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" placeholder="Enter email" required
-                        onChange={ e => setEmail(e.target.value)}/>
+                        onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" placeholder="Enter password" required
-                        onChange={ e => setPassword(e.target.value)}/>
+                        onChange={e => setPassword(e.target.value)} />
                 </div>
                 <div>
-                    <label htmlFor="password">Confirm password</label>
-                    <input type="password" id="password" placeholder="Re-enter password" required
-                        onChange={ e => setConfirmPassword(e.target.value)}/>
+                    <label htmlFor="confirmpassword">Confirm password</label>
+                    <input type="comfirmpassword" id="password" placeholder="Re-enter password" required
+                        onChange={e => setConfirmPassword(e.target.value)} />
                 </div>
                 <div>
                     <label />
@@ -65,7 +65,7 @@ export default function RegisterScreen() {
                 <div>
                     <label />
                     <div>
-                        Already have a account? {' '} 
+                        Already have a account? {' '}
                         <Link to={`/signin?redirect=${redirect}`}>Sign in</Link>
                     </div>
                 </div>
