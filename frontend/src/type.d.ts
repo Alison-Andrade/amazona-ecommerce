@@ -1,3 +1,5 @@
+// declare module 'react-redux'
+
 interface Window {
 	paypal: any
 }
