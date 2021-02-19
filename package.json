@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "build": "cd frontend && yarn install && yarn build",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules backend/server.ts"
