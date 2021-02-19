@@ -114,6 +114,7 @@ interface UserInterface {
 	name: string
 	email: string
 	password: string
+	isSeller?: boolean
 	isAdmin?: boolean
 	token?: string
 }
@@ -123,4 +124,11 @@ type UserState = {
 	error?: string,
 	success?: boolean
 	userInfo?: UserInterface
+}
+
+type UserListState = {
+	loading?: boolean
+	error?: string,
+	success?: boolean
+	users?: UserInterface[]
 }

@@ -6,10 +6,11 @@ interface User {
     name: string,
     email: string,
     password: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    isSeller: boolean
 }
 
-interface UserModel extends Document, User{}
+interface UserModel extends Document, User { }
 
 /* Order definition */
 
@@ -46,4 +47,4 @@ interface Order {
     }
 }
 
-interface OrderModel extends Document, Order{} 
+interface OrderModel extends Document, Order { } 

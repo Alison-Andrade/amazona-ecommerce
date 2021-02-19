@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 
 import data from '../data'
 import User from '../models/userModel'
-import { generateToken, isAuth } from '../utils'
+import { generateToken, isAdmin, isAuth } from '../utils'
 
 const userRouter = express.Router()
 
@@ -75,6 +75,11 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
     } else {
         res.status(404).json({ message: 'User Not Found' })
     }
+}))
+
+userRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
 }))
 
 export default userRouter

@@ -315,3 +315,16 @@ img.large {
 .table button {
     margin: 0 0.2rem;
 }
+
+@media screen and (max-width: 768px) {
+    .checkout-steps>div {
+        /* max-height: 1rem;
+        margin-bottom: 2rem; */
+        padding: 1rem 0 1rem 1rem;
+        white-space: nowrap;
+    }
+
+    .grid-container {
+        grid-template-rows: 10rem 1fr 5rem;
+    }
+}
