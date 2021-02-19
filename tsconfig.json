@@ -1,13 +1,6 @@
 {
   "compilerOptions": {
 
-    "include" : [
-      "src/**/*.ts"   /* Include every ts file in source folder */
-    ],
-    "exclude" : [
-        "node_modules"  /* exclude everything in  node_modules */
-    ],
-
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
