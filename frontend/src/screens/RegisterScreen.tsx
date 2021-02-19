@@ -55,7 +55,7 @@ export default function RegisterScreen() {
                 </div>
                 <div>
                     <label htmlFor="confirmpassword">Confirm password</label>
-                    <input type="comfirmpassword" id="password" placeholder="Re-enter password" required
+                    <input type="password" id="comfirmpassword" placeholder="Re-enter password" required
                         onChange={e => setConfirmPassword(e.target.value)} />
                 </div>
                 <div>
