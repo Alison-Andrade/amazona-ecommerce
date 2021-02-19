@@ -63,6 +63,7 @@ type CartState = {
 }
 
 type OrderState = {
+	success?: boolean
 	order?: Order
 	loading?: boolean
 	error?: string
