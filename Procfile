@@ -1,1 +1,1 @@
-web: ts-node --experimental-modules backend/server.ts
+web: node --experimental-modules backend/server.js
