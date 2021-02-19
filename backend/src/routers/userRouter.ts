@@ -2,21 +2,21 @@ import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
 
-// import data from '../data'
+import data from '../data'
 import User from '../models/userModel'
 import { generateToken, isAuth } from '../utils'
 
 const userRouter = express.Router()
 
-    // userRouter.get('/seed', expressAsyncHandler(async (req, res) => {
-    //     // await User.remove({})
-    //     const createdUsers = await User.insertMany(data.users)
-    //     res.json(createdUsers)
-    // }))
+userRouter.get('/seed', expressAsyncHandler(async (req, res) => {
+    await User.remove({})
+    const createdUsers = await User.insertMany(data.users)
+    res.json(createdUsers)
+}))
 
 userRouter.post('/signin', expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({email: req.body.email})
-    if (user){
+    const user = await User.findOne({ email: req.body.email })
+    if (user) {
         if (bcrypt.compareSync(req.body.password, user.password)) {
             res.json({
                 _id: user.id,
@@ -27,7 +27,7 @@ userRouter.post('/signin', expressAsyncHandler(async (req, res) => {
             })
             return
         }
-        res.status(401).json({ message: 'Invalid email or password'})
+        res.status(401).json({ message: 'Invalid email or password' })
     }
 }))
 
@@ -47,21 +47,21 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
     })
 }))
 
-userRouter.get('/:id', expressAsyncHandler(async (req, res)=>{
+userRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
-    if(user) {
+    if (user) {
         res.json(user)
     } else {
-        res.status(404).json({message: 'User Not Found'})
+        res.status(404).json({ message: 'User Not Found' })
     }
 }))
 
-userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res)=>{
+userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    if(user) {
+    if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        if(req.body.password) {
+        if (req.body.password) {
             user.password = bcrypt.hashSync(req.body.password, 8)
         }
         const updatedUser = await user.save()
@@ -73,7 +73,7 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res)=>{
             token: generateToken(updatedUser),
         })
     } else {
-        res.status(404).json({message: 'User Not Found'})
+        res.status(404).json({ message: 'User Not Found' })
     }
 }))
 

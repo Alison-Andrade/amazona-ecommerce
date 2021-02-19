@@ -1,6 +1,6 @@
 import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
-// import data from '../data'
+import data from '../data'
 import Product from '../models/productModel'
 import { isAdmin, isAuth } from '../utils'
 
@@ -11,11 +11,11 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
     res.json(products)
 }))
 
-// productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
-//     // await Product.remove({})
-//     const createdProducts = await Product.insertMany(data.products)
-//     res.json(createdProducts)
-// }))
+productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
+    await Product.remove({})
+    const createdProducts = await Product.insertMany(data.products)
+    res.json(createdProducts)
+}))
 
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
