@@ -1,16 +1,7 @@
 import axios from 'axios'
-import { useState } from 'react'
 
-const [api, setApi] = useState({})
+const api = process.env.NODE_ENV === "development" ? axios.create({ baseURL: 'http://localhost/3333', })
+    : process.env.NODE_ENV === "production" && axios.create({ baseURL: 'https://my-amazona-ecommerce.herokuapp.com/', })
 
-if (process.env.NODE_ENV === "development") {
-    setApi(axios.create({
-        baseURL: 'http://localhost/3333',
-    }))
-} else if (process.env.NODE_ENV === "production") {
-    setApi(axios.create({
-        baseURL: 'https://my-amazona-ecommerce.herokuapp.com/',
-    }))
-}
 
 export default api
