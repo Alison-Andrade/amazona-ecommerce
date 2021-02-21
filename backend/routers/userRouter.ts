@@ -47,7 +47,7 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
     })
 }))
 
-userRouter.get('/:id', expressAsyncHandler(async (req, res) => {
+userRouter.get('/:id', isAuth, expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
         res.json(user)
@@ -91,6 +91,20 @@ userRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) 
         }
         const deletedUser = await user.remove()
         res.json({ message: 'User Deleted', user: deletedUser })
+    } else {
+        res.status(404).json({ message: 'User Not Found' })
+    }
+}))
+
+userRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.isAdmin = req.body.isAdmin
+        user.isSeller = req.body.isSeller
+        const updatedUser = await user.save()
+        res.json({ message: 'User Updated', user: updatedUser })
     } else {
         res.status(404).json({ message: 'User Not Found' })
     }

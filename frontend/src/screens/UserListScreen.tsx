@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { deleteUser, listUsers } from '../actions/userActions'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
+import { USER_DETAILS_RESET } from '../constants/userConstant'
 import { RootState } from '../store'
 
 export default function UserListScreen() {
+    const history = useHistory()
     const userList = useSelector((state: RootState) => state.userList)
     const { error, loading, users } = userList
     const dispatch = useDispatch()
@@ -14,6 +17,7 @@ export default function UserListScreen() {
 
     useEffect(() => {
         dispatch(listUsers())
+        dispatch({ type: USER_DETAILS_RESET })
     }, [dispatch, successDelete])
 
     const deleteHandler = (userId: string) => {
@@ -53,7 +57,7 @@ export default function UserListScreen() {
                                                 <td>{user.isSeller ? 'YES' : 'NO'}</td>
                                                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                                                 <td>
-                                                    <button type="button" className="small" onClick={() => { }}>Edit</button>
+                                                    <button type="button" className="small" onClick={() => { history.push(`/user/${user._id}/edit`) }}>Edit</button>
                                                     <button type="button" className="small" onClick={() => deleteHandler(user._id)}>Delete</button>
                                                 </td>
                                             </tr>

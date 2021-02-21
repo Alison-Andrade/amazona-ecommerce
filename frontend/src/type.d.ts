@@ -119,6 +119,15 @@ interface UserInterface {
 	token?: string
 }
 
+interface UserUpdateInterface {
+	_id: string
+	name?: string
+	email?: string
+	password?: string
+	isSeller?: boolean
+	isAdmin?: boolean
+}
+
 type UserState = {
 	loading?: boolean
 	error?: string,
