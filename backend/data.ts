@@ -6,12 +6,14 @@ const data = {
             name: 'Admin',
             email: 'admin@amazona.com',
             password: bcrypt.hashSync('1234', 8),
+            isSeller: false,
             isAdmin: true
         },
         {
             name: 'User',
             email: 'user@amazona.com',
             password: bcrypt.hashSync('1234', 8),
+            isSeller: false,
             isAdmin: false
         }
     ],
