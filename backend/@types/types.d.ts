@@ -2,12 +2,17 @@ import { Document } from "mongoose";
 
 /* User definition */
 interface User {
-    _id: string,
-    name: string,
-    email: string,
-    password: string,
-    isAdmin: boolean,
+    _id: string
+    name: string
+    email: string
+    password: string
+    isAdmin: boolean
     isSeller: boolean
+    seller: {
+        name: string
+        logo: string
+        description: string
+    }
 }
 
 interface UserModel extends Document, User { }

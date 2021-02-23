@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../actions/productActions'
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { listProducts } from "../actions/productActions"
 
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
-import Product from '../components/Product'
-import { RootState } from '../store'
+import LoadingBox from "../components/LoadingBox"
+import MessageBox from "../components/MessageBox"
+import Product from "../components/Product"
+import { RootState } from "../store"
 
 export default function HomeScreen() {
     const dispatch = useDispatch()
@@ -13,21 +13,22 @@ export default function HomeScreen() {
     const { loading, error, products } = productList
 
     useEffect(() => {
-        dispatch(listProducts())
+        dispatch(listProducts({}))
     }, [dispatch])
 
     return (
         <div>
-            {loading ? <LoadingBox />
-                : error ? <MessageBox variant="danger">{error}</MessageBox>
-                    : <div className="row center">
-                        {
-                            products?.map(product => {
-                                return <Product key={product._id} product={product} />
-                            })
-                        }
-                    </div>
-            }
+            {loading ? (
+                <LoadingBox />
+            ) : error ? (
+                <MessageBox variant="danger">{error}</MessageBox>
+            ) : (
+                <div className="row center">
+                    {products?.map((product) => {
+                        return <Product key={product._id} product={product} />
+                    })}
+                </div>
+            )}
         </div>
     )
 }

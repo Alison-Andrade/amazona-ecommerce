@@ -7,14 +7,24 @@ const data = {
             email: 'admin@amazona.com',
             password: bcrypt.hashSync('1234', 8),
             isSeller: false,
-            isAdmin: true
+            isAdmin: true,
+            seller: {
+                name: '',
+                logo: '',
+                description: ''
+            }
         },
         {
             name: 'User',
             email: 'user@amazona.com',
             password: bcrypt.hashSync('1234', 8),
             isSeller: false,
-            isAdmin: false
+            isAdmin: false,
+            seller: {
+                name: '',
+                logo: '',
+                description: ''
+            }
         }
     ],
     products: [
