@@ -18,7 +18,7 @@ O objetivo é o desenvolvimento de uma plataforma e-commerce totalmente funciona
 ![](https://img.shields.io/badge/redux%20-%23593d88.svg?&style=for-the-badge&logo=redux&logoColor=white) <br>
 ![]()
 
--   Para o desemvolvimento da minha versão do projeto optei pela utilização do TypeScript ao invés do Javascript puro que é utilizado no projeto original.
+-   Para o desenvolvimento da minha versão do projeto optei pela utilização do TypeScript ao invés do Javascript puro que é utilizado no projeto original.
 
 ## Rode Localmente
 
