@@ -42,7 +42,20 @@ export default function UserEditScreen() {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault()
-        dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }))
+        dispatch(
+            updateUser({
+                _id: userId,
+                name,
+                email,
+                isSeller,
+                isAdmin,
+                seller: {
+                    name: '',
+                    logo: '',
+                    description: '',
+                },
+            })
+        )
     }
 
     return (

@@ -8,10 +8,22 @@ interface Props {
     id: string
 }
 
+interface SellerInterface {
+    // _id: string
+    name: string
+    logo: string
+    description: string
+    rating?: number
+    numReviews?: number
+}
+
 interface ProductInterface {
     _id: string
     name: string
-    seller?: string
+    seller?: {
+        _id: string
+        seller: SellerInterface
+    }
     category: string
     image: string
     price: number
@@ -40,7 +52,7 @@ type ProductState = {
 // Type Cart
 interface ProductCartInterface {
     name: string
-    seller: string
+    seller: SellerInterface
     image: string
     price: number
     countInStock: number
@@ -119,11 +131,7 @@ interface UserInterface {
     isSeller?: boolean
     isAdmin?: boolean
     token?: string
-    seller?: {
-        name: string
-        logo: string
-        description: string
-    }
+    seller?: SellerInterface
 }
 
 interface UserUpdateInterface {
@@ -133,11 +141,7 @@ interface UserUpdateInterface {
     password?: string
     isSeller?: boolean
     isAdmin?: boolean
-    seller?: {
-        name: string
-        logo: string
-        description: string
-    }
+    seller?: SellerInterface
 }
 
 type UserState = {

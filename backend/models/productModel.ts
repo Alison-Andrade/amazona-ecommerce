@@ -2,7 +2,7 @@ import mongoose, { Document } from 'mongoose'
 
 interface Product {
     name: string
-    seller?: string
+    seller?: any
     category: string
     image: string
     price: number

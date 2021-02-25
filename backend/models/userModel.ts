@@ -1,23 +1,26 @@
 import mongoose from 'mongoose'
 import { UserModel } from '../@types/types'
 
-const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    isAdmin: { type: Boolean, default: false, required: true },
-    isSeller: { type: Boolean, default: false, required: true },
-    seller: {
-        name: String,
-        logo: String,
-        description: String,
-        rating: { type: Number, default: 0, required: true },
-        numReviews: { type: Number, default: 0, required: true }
+const userSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        password: { type: String, required: true },
+        isAdmin: { type: Boolean, default: false, required: true },
+        isSeller: { type: Boolean, default: false, required: true },
+        seller: {
+            name: { type: String, default: '' },
+            logo: { type: String, default: '' },
+            description: { type: String, default: '' },
+            rating: { type: Number, default: 0, required: true },
+            numReviews: { type: Number, default: 0, required: true },
+        },
+    },
+    {
+        timestamps: true,
     }
-}, {
-    timestamps: true
-})
+)
 
-const User = mongoose.model<UserModel>("User", userSchema)
+const User = mongoose.model<UserModel>('User', userSchema)
 
 export default User

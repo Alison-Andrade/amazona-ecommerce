@@ -60,7 +60,7 @@ a {
 }
 
 a:hover {
-    color: #ff8000
+    color: #ff8000;
 }
 
 ul {
@@ -146,6 +146,10 @@ a.brand {
     align-items: flex-start;
 }
 
+.row.start {
+    justify-content: flex-start;
+}
+
 .col-1 {
     flex: 1 1 25rem;
 }
@@ -154,8 +158,16 @@ a.brand {
     flex: 2 1 50rem;
 }
 
+.col-3 {
+    flex: 3 1 75rem;
+}
+
 .min-30 {
     min-width: 30rem;
+}
+
+.p-1 {
+    padding: 1rem;
 }
 
 /* Image */
@@ -189,7 +201,7 @@ img.large {
     padding: 1rem;
 }
 
-.card-body>* {
+.card-body > * {
     margin-bottom: 0.5rem;
 }
 
@@ -204,7 +216,7 @@ img.large {
 }
 
 .rating span:last-child {
-    color: #404040
+    color: #404040;
 }
 
 /* Alert */
@@ -213,11 +225,11 @@ img.large {
 }
 
 .success {
-    color: #20a020
+    color: #20a020;
 }
 
 .danger {
-    color: #a02020
+    color: #a02020;
 }
 
 .alert {
@@ -247,7 +259,7 @@ img.large {
     margin: 0 auto;
 }
 
-.form>div {
+.form > div {
     display: flex;
     flex-direction: column;
     margin: 1rem;
@@ -282,7 +294,7 @@ img.large {
 }
 
 /* Checkout Steps*/
-.checkout-steps>div {
+.checkout-steps > div {
     border-top: 0.3rem #c0c0c0 solid;
     color: #c0c0c0;
     flex: 1;
@@ -290,7 +302,7 @@ img.large {
     font-weight: bold;
 }
 
-.checkout-steps>div.active {
+.checkout-steps > div.active {
     border-top-color: #f08000;
     color: #f08000;
 }
@@ -317,7 +329,7 @@ img.large {
 }
 
 @media screen and (max-width: 768px) {
-    .checkout-steps>div {
+    .checkout-steps > div {
         /* max-height: 1rem;
         margin-bottom: 2rem; */
         padding: 1rem 0 1rem 1rem;
@@ -327,4 +339,10 @@ img.large {
     .grid-container {
         grid-template-rows: 10rem 1fr 5rem;
     }
+}
+
+/* Carousel */
+
+.carousel .slide img {
+    max-width: 30rem;
 }

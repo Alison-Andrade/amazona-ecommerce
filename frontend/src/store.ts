@@ -1,10 +1,40 @@
-import { applyMiddleware, combineReducers, compose, createStore, Dispatch, Store } from 'redux'
+import {
+    applyMiddleware,
+    combineReducers,
+    compose,
+    createStore,
+    Dispatch,
+    Store,
+} from 'redux'
 import thunk from 'redux-thunk'
-import { cartReducer } from './reducers/cartReducers';
-import { orderCreateReducer, orderDeleteReducer, orderDeliverReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderPaymentReducer } from './reducers/orderReducers';
+import { cartReducer } from './reducers/cartReducers'
+import {
+    orderCreateReducer,
+    orderDeleteReducer,
+    orderDeliverReducer,
+    orderDetailsReducer,
+    orderListReducer,
+    orderMineListReducer,
+    orderPaymentReducer,
+} from './reducers/orderReducers'
 
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListReducer, productUpdateReducer } from './reducers/productReducers'
-import { userDeleteReducer, userDetailsReducer, userListReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducer';
+import {
+    productCreateReducer,
+    productDeleteReducer,
+    productDetailsReducer,
+    productListReducer,
+    productUpdateReducer,
+} from './reducers/productReducers'
+import {
+    userDeleteReducer,
+    userDetailsReducer,
+    userListReducer,
+    userRegisterReducer,
+    userSigninReducer,
+    userTopSellersListReducer,
+    userUpdateProfileReducer,
+    userUpdateReducer,
+} from './reducers/userReducer'
 
 const reducer = combineReducers({
     productList: productListReducer,
@@ -26,9 +56,11 @@ const reducer = combineReducers({
     productUpdate: productUpdateReducer,
     productDelete: productDeleteReducer,
     userDelete: userDeleteReducer,
-    userUpdate: userUpdateReducer
+    userUpdate: userUpdateReducer,
+    userTopSellersList: userTopSellersListReducer,
 })
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store: Store & {
     dispatch: Dispatch
 } = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))

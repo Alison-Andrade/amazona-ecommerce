@@ -22,26 +22,35 @@ O objetivo é o desenvolvimento de uma plataforma e-commerce totalmente funciona
 
 ## Rode Localmente
 
-1. Clonar o repositório
+### 1. Clonar o repositório
+
     ```
     $ git clone git@github.com:Alison-Andrade/amazona-ecommerce.git
     $ cd amazona-ecommerce
     ```
-2. Configurar MongoDB
+
+### 2. Configurar MongoDB
+
     - MongoDB localmente
         - Instale o mongodb
         - Crie um arquivo .env na raiz do projeto
         - Set MONGODB_URL=mongodb://localhost/amazona
-3. Rodar Backend
+
+### 3. Rodar Backend
+
     ```
     $ yarn install
     $ yarn dev
     ```
-4. Rodar Frontend
+
+### 4. Rodar Frontend
+
     ```
     # Em outro terminal
     $ yarn install
     $ yarn start
     ```
-5. Seed Admin User
+
+### 5. Seed Admin User
+
     - Acesse [http://localhost:3333/api/users/seed](http://localhost:3333/api/users/seed) em seu navegador

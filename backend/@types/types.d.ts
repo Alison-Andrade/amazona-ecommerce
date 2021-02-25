@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose'
 
 /* User definition */
 interface User {
@@ -15,35 +15,37 @@ interface User {
     }
 }
 
-interface UserModel extends Document, User { }
+interface UserModel extends Document, User {}
 
 /* Order definition */
 
 interface Order {
-    orderItems: [{
-        name: string,
-        qty: number,
-        image: string,
-        price: string,
-        product: string,
-    }],
+    orderItems: [
+        {
+            name: string
+            qty: number
+            image: string
+            price: string
+            product: string
+        }
+    ]
     shippingAddress: {
-        fullName: string,
-        address: string,
-        city: string,
-        postalCode: string,
-        country: string,
-    },
-    paymentMethod: string,
-    itemsPrice: number,
-    shippingPrice: number,
-    taxPrice: number,
-    totalPrice: number,
-    user: string,
-    isPaid: boolean,
-    paidAt: number,
-    isDelivered: boolean,
-    deliveredAt: number,
+        fullName: string
+        address: string
+        city: string
+        postalCode: string
+        country: string
+    }
+    paymentMethod: string
+    itemsPrice: number
+    shippingPrice: number
+    taxPrice: number
+    totalPrice: number
+    user: string
+    isPaid: boolean
+    paidAt: number
+    isDelivered: boolean
+    deliveredAt: number
     paymentResult: {
         id: string
         status: string
@@ -52,4 +54,4 @@ interface Order {
     }
 }
 
-interface OrderModel extends Document, Order { } 
+interface OrderModel extends Document, Order {}
