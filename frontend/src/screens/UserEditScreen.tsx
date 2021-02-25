@@ -19,7 +19,11 @@ export default function UserEditScreen() {
     const userDetails = useSelector((state: RootState) => state.userDetails)
     const { userInfo, loading, error } = userDetails
     const userUpdate = useSelector((state: RootState) => state.userUpdate)
-    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate
+    const {
+        loading: loadingUpdate,
+        error: errorUpdate,
+        success: successUpdate,
+    } = userUpdate
 
     useEffect(() => {
         if (successUpdate) {
@@ -34,7 +38,7 @@ export default function UserEditScreen() {
             setIsSeller(userInfo.isSeller ? userInfo.isSeller : false)
             setIsAdmin(userInfo.isAdmin ? userInfo.isAdmin : false)
         }
-    }, [dispatch, userInfo, userId, successUpdate, history]);
+    }, [dispatch, userInfo, userId, successUpdate, history])
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault()
@@ -45,36 +49,66 @@ export default function UserEditScreen() {
         <div>
             <form onSubmit={submitHandler} className="form">
                 <div>
-                    <h1>Edit User {name}</h1>
+                    <h1>Edit User: {userInfo?.name}</h1>
                 </div>
                 {loadingUpdate && <LoadingBox />}
-                {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
-                {successUpdate && <MessageBox variant="success">{successUpdate}</MessageBox>}
-                {
-                    loading ? <LoadingBox /> :
-                        error ? <MessageBox variant="danger">{error}</MessageBox> :
-                            <>
-                                <div>
-                                    <label htmlFor="name">Name</label>
-                                    <input type="text" id="name" placeholder="Enter Name" value={name} onChange={e => setName(e.target.value)} />
-                                </div>
-                                <div>
-                                    <label htmlFor="email">Email</label>
-                                    <input type="text" id="email" placeholder="Enter Email" value={email} onChange={e => setEmail(e.target.value)} />
-                                </div>
-                                <div>
-                                    <label htmlFor="isSeller">Is Seller</label>
-                                    <input type="checkbox" id="isSeller" checked={isSeller} onChange={e => setIsSeller(e.target.checked)} />
-                                </div>
-                                <div>
-                                    <label htmlFor="isAdmin">Is Admin</label>
-                                    <input type="checkbox" id="isAdmin" checked={isAdmin} onChange={e => setIsAdmin(e.target.checked)} />
-                                </div>
-                                <div>
-                                    <button type="submit" className="primary">Submit</button>
-                                </div>
-                            </>
-                }
+                {errorUpdate && (
+                    <MessageBox variant="danger">{errorUpdate}</MessageBox>
+                )}
+                {successUpdate && (
+                    <MessageBox variant="success">{successUpdate}</MessageBox>
+                )}
+                {loading ? (
+                    <LoadingBox />
+                ) : error ? (
+                    <MessageBox variant="danger">{error}</MessageBox>
+                ) : (
+                    <>
+                        <div>
+                            <label htmlFor="name">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="text"
+                                id="email"
+                                placeholder="Enter Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="isSeller">Is Seller</label>
+                            <input
+                                type="checkbox"
+                                id="isSeller"
+                                checked={isSeller}
+                                onChange={(e) => setIsSeller(e.target.checked)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="isAdmin">Is Admin</label>
+                            <input
+                                type="checkbox"
+                                id="isAdmin"
+                                checked={isAdmin}
+                                onChange={(e) => setIsAdmin(e.target.checked)}
+                            />
+                        </div>
+                        <div>
+                            <button type="submit" className="primary">
+                                Submit
+                            </button>
+                        </div>
+                    </>
+                )}
             </form>
         </div>
     )

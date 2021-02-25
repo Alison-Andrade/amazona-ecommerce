@@ -1,14 +1,14 @@
 import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import Order from '../models/orderModel'
-import { isAdmin, isAuth } from '../utils'
+import { isAdmin, isAuth, isSellerOrAdmin } from '../utils'
 
 const orderRouter = express.Router()
 
 orderRouter.get(
     '/',
     isAuth,
-    isAdmin,
+    isSellerOrAdmin,
     expressAsyncHandler(async (req, res) => {
         const seller = String(req.query.seller) || ''
         const sellerFilter = seller ? { seller } : {}
