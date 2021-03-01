@@ -24,6 +24,8 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import SellerRoute from './screens/SellerRoute'
 import SellerScreen from './screens/SellerScreen'
+import SearchBox from './components/SearchBox'
+import SearchScreen from './screens/SearchScreen'
 
 function App() {
     const dispatch = useDispatch()
@@ -44,6 +46,13 @@ function App() {
                         <Link className="brand" to="/">
                             amazona
                         </Link>
+                    </div>
+                    <div>
+                        <Route
+                            render={({ history }) => (
+                                <SearchBox history={history}></SearchBox>
+                            )}
+                        />
                     </div>
                     <div>
                         <Link to="/cart">
@@ -125,6 +134,41 @@ function App() {
                     </div>
                 </header>
                 <main>
+                    <Route path="/" component={HomeScreen} exact />
+                    <Route path="/seller/:id" component={SellerScreen} />
+                    <Route path="/order/:id" component={OrderScreen} />
+                    <Route
+                        path="/orderhistory"
+                        component={OrderHistoryScreen}
+                    />
+                    <Route path="/placeorder" component={PlaceOrderScreen} />
+                    <Route path="/payment" component={PaymentMethodScreen} />
+                    <Route path="/shipping" component={ShippingAddressScreen} />
+                    <Route path="/register" component={RegisterScreen} />
+                    <Route path="/signin" component={SigninScreen} />
+                    <Route path="/cart/:id?" component={CartScreen} />
+                    <Route
+                        path="/product/:id"
+                        component={ProductScreen}
+                        exact
+                    />
+                    <Route
+                        path="/product/:id/edit"
+                        component={ProductEditScreen}
+                    />
+                    <Route
+                        path="/search/name/:name?"
+                        component={SearchScreen}
+                    />
+                    <PrivateRoute path="/profile" component={ProfileScreen} />
+                    <SellerRoute
+                        path="/productlist/seller"
+                        component={ProductListScreen}
+                    />
+                    <SellerRoute
+                        path="/orderlist/seller"
+                        component={OrderListScreen}
+                    />
                     <AdminRoute
                         path="/productlist"
                         component={ProductListScreen}
@@ -140,37 +184,6 @@ function App() {
                         path="/user/:id/edit"
                         component={UserEditScreen}
                     />
-                    <SellerRoute
-                        path="/productlist/seller"
-                        component={ProductListScreen}
-                    />
-                    <SellerRoute
-                        path="/orderlist/seller"
-                        component={OrderListScreen}
-                    />
-                    <Route path="/seller/:id" component={SellerScreen} />
-                    <Route path="/order/:id" component={OrderScreen} />
-                    <Route
-                        path="/orderhistory"
-                        component={OrderHistoryScreen}
-                    />
-                    <Route path="/placeorder" component={PlaceOrderScreen} />
-                    <Route path="/payment" component={PaymentMethodScreen} />
-                    <Route path="/shipping" component={ShippingAddressScreen} />
-                    <PrivateRoute path="/profile" component={ProfileScreen} />
-                    <Route path="/register" component={RegisterScreen} />
-                    <Route path="/signin" component={SigninScreen} />
-                    <Route path="/cart/:id?" component={CartScreen} />
-                    <Route
-                        path="/product/:id"
-                        component={ProductScreen}
-                        exact
-                    />
-                    <Route
-                        path="/product/:id/edit"
-                        component={ProductEditScreen}
-                    />
-                    <Route path="/" component={HomeScreen} exact />
                 </main>
                 <footer className="row center">All rights reserved.</footer>
             </div>

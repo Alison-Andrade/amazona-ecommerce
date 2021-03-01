@@ -2,7 +2,7 @@ import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import data from '../data'
 import Product from '../models/productModel'
-import { isAdmin, isAuth, isSellerOrAdmin, isSellerOrAdmin } from '../utils'
+import { isAdmin, isAuth, isSellerOrAdmin } from '../utils'
 
 const productRouter = express.Router()
 
@@ -10,11 +10,13 @@ productRouter.get(
     '/',
     expressAsyncHandler(async (req, res) => {
         const seller = String(req.query.seller) || ''
+        const name = String(req.query.name) || ''
         const sellerFilter = seller ? { seller } : {}
-        const products = await Product.find({ ...sellerFilter }).populate(
-            'seller',
-            'seller.name seller.logo'
-        )
+        const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {}
+        const products = await Product.find({
+            ...sellerFilter,
+            ...nameFilter,
+        }).populate('seller', 'seller.name seller.logo')
         res.json(products)
     })
 )

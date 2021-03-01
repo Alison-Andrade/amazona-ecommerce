@@ -22,13 +22,14 @@ import { RootState } from '../store'
 
 export const listProducts = ({
     seller = '',
+    name = '',
 }): ThunkAction<void, RootState, unknown, Action<string>> => async (
     dispatch
 ) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST,
     })
-    api.get(`/api/products?seller=${seller}`)
+    api.get(`/api/products?seller=${seller}&name=${name}`)
         .then((response) => {
             const { data } = response
             dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })

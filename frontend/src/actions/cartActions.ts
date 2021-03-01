@@ -43,7 +43,6 @@ export const addToCart = (
                     qty,
                 },
             })
-
             localStorage.setItem(
                 'cartItems',
                 JSON.stringify(getState().cart.cartItems)
