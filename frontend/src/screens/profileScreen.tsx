@@ -43,7 +43,6 @@ export default function ProfileScreen() {
                 setSellerDescription(user.seller.description)
             }
         }
-        console.log(user)
     }, [dispatch, userInfo, user])
 
     const submitHandler = (e: FormEvent) => {
@@ -146,7 +145,7 @@ export default function ProfileScreen() {
                                         <input
                                             type="text"
                                             id="sellerName"
-                                            value={user.seller?.name}
+                                            value={sellerName}
                                             placeholder="Enter Seller Name"
                                             onChange={(e) =>
                                                 setSellerName(e.target.value)
@@ -160,7 +159,7 @@ export default function ProfileScreen() {
                                         <input
                                             type="text"
                                             id="sellerLogo"
-                                            value={user.seller?.logo}
+                                            value={sellerLogo}
                                             placeholder="Enter Seller Logo"
                                             onChange={(e) =>
                                                 setSellerLogo(e.target.value)
@@ -174,7 +173,7 @@ export default function ProfileScreen() {
                                         <input
                                             type="text"
                                             id="sellerDescription"
-                                            value={user.seller?.description}
+                                            value={sellerDescription}
                                             placeholder="Enter Seller Description"
                                             onChange={(e) =>
                                                 setSellerDescription(

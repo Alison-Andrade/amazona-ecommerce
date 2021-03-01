@@ -2,7 +2,7 @@ import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import data from '../data'
 import Product from '../models/productModel'
-import { isAdmin, isAuth, isSellerOrAdmin } from '../utils'
+import { isAdmin, isAuth, isSellerOrAdmin, isSellerOrAdmin } from '../utils'
 
 const productRouter = express.Router()
 
@@ -68,7 +68,7 @@ productRouter.post(
 productRouter.put(
     '/:id',
     isAuth,
-    isAdmin,
+    isSellerOrAdmin,
     expressAsyncHandler(async (req, res) => {
         const productId = req.params.id
         const product = await Product.findById(productId)

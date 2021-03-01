@@ -52,7 +52,10 @@ type ProductState = {
 // Type Cart
 interface ProductCartInterface {
     name: string
-    seller: SellerInterface
+    seller?: {
+        _id: string
+        seller: SellerInterface
+    }
     image: string
     price: number
     countInStock: number
@@ -76,6 +79,7 @@ type CartState = {
     shippingPrice?: number
     taxPrice?: number
     totalPrice?: number
+    error?: string
 }
 
 type OrderState = {
