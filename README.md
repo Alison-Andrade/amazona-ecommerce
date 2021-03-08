@@ -24,10 +24,8 @@ O objetivo é o desenvolvimento de uma plataforma e-commerce totalmente funciona
 
 ### 1. Clonar o repositório
 
-    ```
     $ git clone git@github.com:Alison-Andrade/amazona-ecommerce.git
     $ cd amazona-ecommerce
-    ```
 
 ### 2. Configurar MongoDB
 
@@ -38,18 +36,14 @@ O objetivo é o desenvolvimento de uma plataforma e-commerce totalmente funciona
 
 ### 3. Rodar Backend
 
-    ```
     $ yarn install
     $ yarn dev
-    ```
 
 ### 4. Rodar Frontend
 
-    ```
     # Em outro terminal
     $ yarn install
     $ yarn start
-    ```
 
 ### 5. Seed Admin User
 
