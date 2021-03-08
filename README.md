@@ -47,4 +47,4 @@ O objetivo é o desenvolvimento de uma plataforma e-commerce totalmente funciona
 
 ### 5. Seed Admin User
 
-    - Acesse [http://localhost:3333/api/users/seed](http://localhost:3333/api/users/seed) em seu navegador
+    - Acesse http://localhost:3333/api/users/seed em seu navegador
