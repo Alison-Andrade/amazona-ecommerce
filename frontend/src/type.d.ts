@@ -9,7 +9,6 @@ interface Props {
 }
 
 interface SellerInterface {
-    // _id: string
     name: string
     logo: string
     description: string
@@ -18,20 +17,20 @@ interface SellerInterface {
 }
 
 interface ProductInterface {
-    _id: string
-    name: string
+    _id?: string
+    name?: string
     seller?: {
         _id: string
         seller: SellerInterface
     }
-    category: string
-    image: string
-    price: number
-    brand: string
+    category?: string
+    image?: string
+    price?: number
+    brand?: string
     rating?: number | 0
     numReviews?: number
-    description: string
-    countInStock: number
+    description?: string
+    countInStock?: number
 }
 
 // Type product list
@@ -39,6 +38,7 @@ type ProductListState = {
     loading: boolean
     error?: string
     products?: ProductInterface[]
+    categories?: string[]
 }
 
 // Type product

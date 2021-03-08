@@ -1,6 +1,9 @@
 import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import {
+    PRODUCT_CATEGORY_LIST_FAIL,
+    PRODUCT_CATEGORY_LIST_REQUEST,
+    PRODUCT_CATEGORY_LIST_SUCCESS,
     PRODUCT_CREATE_FAIL,
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
@@ -23,13 +26,18 @@ import { RootState } from '../store'
 export const listProducts = ({
     seller = '',
     name = '',
-}): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch
-) => {
+    category = '',
+    order = '',
+    min = '0',
+    max = '0',
+    rating = '0',
+}): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST,
     })
-    api.get(`/api/products?seller=${seller}&name=${name}`)
+    api.get(
+        `/api/products?seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+    )
         .then((response) => {
             const { data } = response
             dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
@@ -41,9 +49,7 @@ export const listProducts = ({
 
 export const detailsProduct = (
     productID: string
-): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch
-) => {
+): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productID })
     api.get(`/api/products/${productID}`)
         .then((response) => {
@@ -132,7 +138,7 @@ export const updateProduct = (
 }
 
 export const deleteProduct = (
-    productId: string
+    productId?: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => async (
     dispatch,
     getState
@@ -159,5 +165,24 @@ export const deleteProduct = (
                         ? err.response.data.message
                         : err.message,
             })
+        })
+}
+
+export const listProductCategories = (): ThunkAction<
+    void,
+    RootState,
+    unknown,
+    Action<string>
+> => async (dispatch) => {
+    dispatch({
+        type: PRODUCT_CATEGORY_LIST_REQUEST,
+    })
+    api.get(`/api/products/categories`)
+        .then((response) => {
+            const { data } = response
+            dispatch({ type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data })
+        })
+        .catch((err) => {
+            dispatch({ type: PRODUCT_CATEGORY_LIST_FAIL, payload: err.message })
         })
 }

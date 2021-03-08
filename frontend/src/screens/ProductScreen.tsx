@@ -97,6 +97,7 @@ export default function ProductScreen() {
                                             <div>Status</div>
                                             <div>
                                                 {product &&
+                                                product.countInStock &&
                                                 product.countInStock > 0 ? (
                                                     <span className="success">
                                                         In Stock
@@ -109,49 +110,57 @@ export default function ProductScreen() {
                                             </div>
                                         </div>
                                     </li>
-                                    {product && product.countInStock > 0 && (
-                                        <>
-                                            <li>
-                                                <div className="row">
-                                                    <div>Qty</div>
-                                                    <div>
-                                                        <select
-                                                            value={qty}
-                                                            onChange={(e) =>
-                                                                setQty(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        >
-                                                            {[
-                                                                ...Array(
-                                                                    product.countInStock
-                                                                ).keys(),
-                                                            ].map((x) => (
-                                                                <option
-                                                                    key={x + 1}
-                                                                    value={
-                                                                        x + 1
-                                                                    }
-                                                                >
-                                                                    {x + 1}
-                                                                </option>
-                                                            ))}
-                                                        </select>
+                                    {product &&
+                                        product.countInStock &&
+                                        product.countInStock > 0 && (
+                                            <>
+                                                <li>
+                                                    <div className="row">
+                                                        <div>Qty</div>
+                                                        <div>
+                                                            <select
+                                                                value={qty}
+                                                                onChange={(e) =>
+                                                                    setQty(
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            >
+                                                                {[
+                                                                    ...Array(
+                                                                        product.countInStock
+                                                                    ).keys(),
+                                                                ].map((x) => (
+                                                                    <option
+                                                                        key={
+                                                                            x +
+                                                                            1
+                                                                        }
+                                                                        value={
+                                                                            x +
+                                                                            1
+                                                                        }
+                                                                    >
+                                                                        {x + 1}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <button
-                                                    onClick={addToCartHandler}
-                                                    className="primary block"
-                                                >
-                                                    Add to Cart
-                                                </button>
-                                            </li>
-                                        </>
-                                    )}
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={
+                                                            addToCartHandler
+                                                        }
+                                                        className="primary block"
+                                                    >
+                                                        Add to Cart
+                                                    </button>
+                                                </li>
+                                            </>
+                                        )}
                                 </ul>
                             </div>
                         </div>

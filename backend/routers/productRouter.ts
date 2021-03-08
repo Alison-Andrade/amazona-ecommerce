@@ -11,13 +11,49 @@ productRouter.get(
     expressAsyncHandler(async (req, res) => {
         const seller = String(req.query.seller) || ''
         const name = String(req.query.name) || ''
-        const sellerFilter = seller ? { seller } : {}
+        const category = String(req.query.category) || ''
+        const order = String(req.query.order) || ''
+        const min =
+            req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0
+        const max =
+            req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0
+        const rating =
+            req.query.rating && Number(req.query.rating) !== 0
+                ? Number(req.query.rating)
+                : 0
+
         const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {}
+        const sellerFilter = seller ? { seller } : {}
+        const categoryFilter = category ? { category } : {}
+        const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {}
+        const ratingFilter = rating ? { rating: { $gte: rating } } : {}
+        const sortOrder =
+            order === 'lowest'
+                ? { price: 1 }
+                : order === 'highest'
+                ? { price: -1 }
+                : order === 'toprated'
+                ? { rating: -1 }
+                : { _id: -1 }
+
         const products = await Product.find({
             ...sellerFilter,
             ...nameFilter,
-        }).populate('seller', 'seller.name seller.logo')
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter,
+        })
+            .populate('seller', 'seller.name seller.logo')
+            .sort(sortOrder)
         res.json(products)
+    })
+)
+
+productRouter.get(
+    '/categories',
+    expressAsyncHandler(async (req, res) => {
+        const categories = await Product.find().distinct('category')
+        res.json(categories)
     })
 )
 

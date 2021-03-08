@@ -1,12 +1,12 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from "react-router-dom"
-import { detailsProduct, updateProduct } from "../actions/productActions"
-import LoadingBox from "../components/LoadingBox"
-import MessageBox from "../components/MessageBox"
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants"
-import api from "../services/api"
-import { RootState } from "../store"
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useParams } from 'react-router-dom'
+import { detailsProduct, updateProduct } from '../actions/productActions'
+import LoadingBox from '../components/LoadingBox'
+import MessageBox from '../components/MessageBox'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import api from '../services/api'
+import { RootState } from '../store'
 
 export default function ProductEditScreen() {
     const history = useHistory()
@@ -16,13 +16,13 @@ export default function ProductEditScreen() {
         (state: RootState) => state.productDetails
     )
     const { error, loading, product } = productDetails
-    const [name, setName] = useState("")
+    const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
-    const [image, setImage] = useState("")
-    const [category, setCategory] = useState("")
+    const [image, setImage] = useState('')
+    const [category, setCategory] = useState('')
     const [countInStock, setCountInStock] = useState(0)
-    const [brand, setBrand] = useState("")
-    const [description, setDescription] = useState("")
+    const [brand, setBrand] = useState('')
+    const [description, setDescription] = useState('')
     const dispatch = useDispatch()
     const productUpdate = useSelector((state: RootState) => state.productUpdate)
     const {
@@ -35,19 +35,19 @@ export default function ProductEditScreen() {
 
     useEffect(() => {
         if (successUpdate) {
-            history.push("/productlist")
+            history.push('/productlist')
         }
         if (!product || product._id !== productId || successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET })
             dispatch(detailsProduct(productId))
         } else {
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setCategory(product.category)
-            setCountInStock(product.countInStock)
-            setBrand(product.brand)
-            setDescription(product.description)
+            product.name && setName(product.name)
+            product.price && setPrice(product.price)
+            product.image && setImage(product.image)
+            product.category && setCategory(product.category)
+            product.countInStock && setCountInStock(product.countInStock)
+            product.brand && setBrand(product.brand)
+            product.description && setDescription(product.description)
         }
     }, [dispatch, product, productId, history, successUpdate])
 
@@ -68,17 +68,17 @@ export default function ProductEditScreen() {
     }
 
     const [loadingUpload, setLoadingUpload] = useState(false)
-    const [errorUpload, setErrorUpload] = useState("")
+    const [errorUpload, setErrorUpload] = useState('')
     const uploadFileHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const file = e.target.files[0]
             const bodyFormData = new FormData()
-            bodyFormData.append("image", file)
+            bodyFormData.append('image', file)
             setLoadingUpload(true)
 
-            api.post("/api/uploads", bodyFormData, {
+            api.post('/api/uploads', bodyFormData, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    'Content-Type': 'multipart/form-data',
                     Autorization: `Bearer ${userInfo?.token}`,
                 },
             })
@@ -201,7 +201,7 @@ export default function ProductEditScreen() {
                         <div>
                             <label />
                             <button className="primary" type="submit">
-                                {loadingUpdate ? <LoadingBox /> : "Update"}
+                                {loadingUpdate ? <LoadingBox /> : 'Update'}
                             </button>
                         </div>
                     </>
