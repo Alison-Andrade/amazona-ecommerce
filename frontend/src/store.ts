@@ -24,6 +24,7 @@ import {
     productDeleteReducer,
     productDetailsReducer,
     productListReducer,
+    productReviewCreateReducer,
     productUpdateReducer,
 } from './reducers/productReducers'
 import {
@@ -60,9 +61,9 @@ const reducer = combineReducers({
     userUpdate: userUpdateReducer,
     userTopSellersList: userTopSellersListReducer,
     categoryList: productCategoryListReducer,
+    productReviewCreate: productReviewCreateReducer,
 })
-const composeEnhancers =
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store: Store & {
     dispatch: Dispatch
 } = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))

@@ -9,11 +9,27 @@ interface Product {
     brand: string
     rating: number
     numReviews: number
+    reviews: {
+        name: string
+        comment: string
+        rating: number
+    }[]
     description: string
     countInStock: number
 }
 
 interface ProductModel extends Document, Product {}
+
+const ReviewSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        comment: { type: String, required: true },
+        rating: { type: Number, required: true },
+    },
+    {
+        timestamps: true,
+    }
+)
 
 const productSchema = new mongoose.Schema(
     {
@@ -27,6 +43,7 @@ const productSchema = new mongoose.Schema(
         numReviews: { type: Number, required: true },
         description: { type: String, required: true },
         countInStock: { type: Number, required: true },
+        reviews: [ReviewSchema],
     },
     {
         timestamps: true,

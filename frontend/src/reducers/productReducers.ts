@@ -17,6 +17,10 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    PRODUCT_REVIEW_CREATE_FAIL,
+    PRODUCT_REVIEW_CREATE_REQUEST,
+    PRODUCT_REVIEW_CREATE_RESET,
+    PRODUCT_REVIEW_CREATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_RESET,
@@ -64,10 +68,7 @@ export const productDetailsReducer: Reducer<ProductState> = (
     }
 }
 
-export const productCreateReducer: Reducer<ProductState> = (
-    state = {},
-    action
-) => {
+export const productCreateReducer: Reducer<ProductState> = (state = {}, action) => {
     switch (action.type) {
         case PRODUCT_CREATE_REQUEST:
             return { loading: true }
@@ -82,10 +83,7 @@ export const productCreateReducer: Reducer<ProductState> = (
     }
 }
 
-export const productUpdateReducer: Reducer<ProductState> = (
-    state = {},
-    action
-) => {
+export const productUpdateReducer: Reducer<ProductState> = (state = {}, action) => {
     switch (action.type) {
         case PRODUCT_UPDATE_REQUEST:
             return { loading: true }
@@ -100,10 +98,7 @@ export const productUpdateReducer: Reducer<ProductState> = (
     }
 }
 
-export const productDeleteReducer: Reducer<ProductState> = (
-    state = {},
-    action
-) => {
+export const productDeleteReducer: Reducer<ProductState> = (state = {}, action) => {
     switch (action.type) {
         case PRODUCT_DELETE_REQUEST:
             return { loading: true }
@@ -129,6 +124,24 @@ export const productCategoryListReducer: Reducer<ProductListState> = (
             return { loading: false, categories: action.payload }
         case PRODUCT_CATEGORY_LIST_FAIL:
             return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const productReviewCreateReducer: Reducer<ReviewState> = (
+    state = {},
+    action
+) => {
+    switch (action.type) {
+        case PRODUCT_REVIEW_CREATE_REQUEST:
+            return { loading: true }
+        case PRODUCT_REVIEW_CREATE_SUCCESS:
+            return { loading: false, success: true, review: action.payload }
+        case PRODUCT_REVIEW_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+        case PRODUCT_REVIEW_CREATE_RESET:
+            return {}
         default:
             return state
     }

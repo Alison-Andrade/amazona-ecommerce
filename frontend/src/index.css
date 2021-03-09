@@ -91,6 +91,10 @@ button {
     cursor: pointer;
 }
 
+textarea {
+    resize: vertical;
+}
+
 input:hover,
 select:hover,
 textarea:hover,

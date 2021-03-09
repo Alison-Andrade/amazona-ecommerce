@@ -16,6 +16,9 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    PRODUCT_REVIEW_CREATE_FAIL,
+    PRODUCT_REVIEW_CREATE_REQUEST,
+    PRODUCT_REVIEW_CREATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
@@ -184,5 +187,39 @@ export const listProductCategories = (): ThunkAction<
         })
         .catch((err) => {
             dispatch({ type: PRODUCT_CATEGORY_LIST_FAIL, payload: err.message })
+        })
+}
+
+export const createReview = (
+    productId: string,
+    review: ReviewInterface
+): ThunkAction<void, RootState, unknown, Action<string>> => async (
+    dispatch,
+    getState
+) => {
+    dispatch({ type: PRODUCT_REVIEW_CREATE_REQUEST })
+    const {
+        userSignin: { userInfo },
+    } = getState()
+    api.post(`/api/products/${productId}/reviews`, review, {
+        headers: {
+            Autorization: `Bearer ${userInfo?.token}`,
+        },
+    })
+        .then((response) => {
+            const { data } = response
+            dispatch({
+                type: PRODUCT_REVIEW_CREATE_SUCCESS,
+                payload: data.product,
+            })
+        })
+        .catch((err) => {
+            dispatch({
+                type: PRODUCT_REVIEW_CREATE_FAIL,
+                payload:
+                    err.response && err.response.data.message
+                        ? err.response.data.message
+                        : err.message,
+            })
         })
 }

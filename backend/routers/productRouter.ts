@@ -121,7 +121,10 @@ productRouter.put(
             product.description = req.body.description
 
             const updatedProduct = await product?.save()
-            res.json({ message: 'Product Upadated', product: updatedProduct })
+            res.status(201).json({
+                message: 'Product Upadated',
+                product: updatedProduct,
+            })
         } else {
             res.status(404).json({ message: 'Product not found' })
         }
@@ -137,6 +140,40 @@ productRouter.delete(
         if (product) {
             const deletedProduct = await product.remove()
             res.json(deletedProduct)
+        } else {
+            res.status(404).json({ message: 'Product not found' })
+        }
+    })
+)
+
+productRouter.post(
+    '/:id/reviews',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+        const productId = req.params.id
+        const product = await Product.findById(productId)
+
+        if (product?.reviews.find((x) => x.name === req.user.name)) {
+            return res.status(400).json({ message: 'You already submitted a review' })
+        }
+
+        if (product) {
+            const review = {
+                name: req.user.name,
+                rating: Number(req.body.rating),
+                comment: req.body.comment,
+            }
+
+            product?.reviews?.push(review)
+            product.numReviews = product.reviews?.length || 0
+            product.rating =
+                product.reviews?.reduce((a, c) => c.rating + a, 0) /
+                product.reviews?.length
+            const updatedProduct = await product?.save()
+            res.status(201).json({
+                message: 'Review Created',
+                review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+            })
         } else {
             res.status(404).json({ message: 'Product not found' })
         }

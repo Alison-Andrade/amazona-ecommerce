@@ -29,6 +29,7 @@ interface ProductInterface {
     brand?: string
     rating?: number | 0
     numReviews?: number
+    reviews?: review[]
     description?: string
     countInStock?: number
 }
@@ -47,6 +48,21 @@ type ProductState = {
     success?: boolean
     error?: string
     product?: ProductInterface
+}
+
+interface ReviewInterface {
+    _id?: string
+    name?: string
+    rating?: number
+    createdAt?: string
+    comment?: string
+}
+
+type ReviewState = {
+    loading?: boolean
+    success?: boolean
+    error?: string
+    review?: ReviewInterface
 }
 
 // Type Cart
