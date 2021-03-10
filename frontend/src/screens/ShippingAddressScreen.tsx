@@ -9,14 +9,18 @@ export default function ShippingAddressScreen() {
     const history = useHistory()
     const userSignin = useSelector((state: RootState) => state.userSignin)
     const { userInfo } = userSignin
-    if (!userInfo){
+    if (!userInfo) {
         history.push('/signin')
     }
     const cart = useSelector((state: RootState) => state.cart)
     const { shippingAddress, cartItems } = cart
-    if(cartItems.length === 0) {
+    const userAddressMap = useSelector((state: RootState) => state.userAddressMap)
+    const { address: addressMap } = userAddressMap
+    const [lat, setLat] = useState(shippingAddress.lat)
+    const [lng, setLng] = useState(shippingAddress.lng)
+    if (cartItems.length === 0) {
         history.push('/')
-    } 
+    }
 
     const [fullName, setFullName] = useState(shippingAddress.fullName)
     const [address, setAddress] = useState(shippingAddress.address)
@@ -27,8 +31,45 @@ export default function ShippingAddressScreen() {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault()
-        dispatch(saveShippingAddress({fullName, address, city, postalCode, country}))
-        history.push('/payment')
+        const newLat = addressMap ? addressMap.lat : lat
+        const newLng = addressMap ? addressMap.lng : lng
+        if (addressMap) {
+            setLat(addressMap.lat)
+            setLng(addressMap.lng)
+        }
+        let moveOn = true
+        if (!newLat && !newLng) {
+            moveOn = window.confirm('You did not set your location on map. Continue?')
+        }
+        if (moveOn) {
+            dispatch(
+                saveShippingAddress({
+                    fullName,
+                    address,
+                    city,
+                    postalCode,
+                    country,
+                    lat: newLat,
+                    lng: newLng,
+                })
+            )
+            history.push('/payment')
+        }
+    }
+
+    const chooseOnMap = () => {
+        dispatch(
+            saveShippingAddress({
+                fullName,
+                address,
+                city,
+                postalCode,
+                country,
+                lat,
+                lng,
+            })
+        )
+        history.push('/map')
     }
 
     return (
@@ -40,27 +81,70 @@ export default function ShippingAddressScreen() {
                 </div>
                 <div>
                     <label htmlFor="fullName">Full Name</label>
-                    <input type="text" id="fullName" placeholder="Enter full name" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter full name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <label htmlFor="address">Address</label>
-                    <input type="text" id="address" placeholder="Enter adress" value={address} onChange={(e) => setAddress(e.target.value)} required/>
+                    <input
+                        type="text"
+                        id="address"
+                        placeholder="Enter adress"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <label htmlFor="city">City</label>
-                    <input type="text" id="city" placeholder="Enter city" value={city} onChange={(e) => setCity(e.target.value)} required/>
+                    <input
+                        type="text"
+                        id="city"
+                        placeholder="Enter city"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <label htmlFor="postalCode">Postal code</label>
-                    <input type="text" id="postalCode" placeholder="Enter postal code" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required/>
+                    <input
+                        type="text"
+                        id="postalCode"
+                        placeholder="Enter postal code"
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <label htmlFor="country">Country</label>
-                    <input type="text" id="country" placeholder="Enter country" value={country} onChange={(e) => setCountry(e.target.value)} required/>
+                    <input
+                        type="text"
+                        id="country"
+                        placeholder="Enter country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="chooseOnMap">Location</label>
+                    <button type="button" onClick={chooseOnMap}>
+                        Choose On Map
+                    </button>
                 </div>
                 <div>
                     <label />
-                    <button className="primary" type="submit">Continue</button>
+                    <button className="primary" type="submit">
+                        Continue
+                    </button>
                 </div>
             </form>
         </div>

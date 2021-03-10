@@ -29,6 +29,7 @@ import {
     USER_TOPSELLERS_LIST_REQUEST,
     USER_TOPSELLERS_LIST_SUCCESS,
     USER_TOPSELLERS_LIST_FAIL,
+    USER_ADDRESS_MAP_CONFIRM,
 } from '../constants/userConstant'
 
 const initialState = {
@@ -37,10 +38,7 @@ const initialState = {
         JSON.parse(String(localStorage.getItem('userInfo'))),
 }
 
-export const userSigninReducer: Reducer<UserState> = (
-    state = initialState,
-    action
-) => {
+export const userSigninReducer: Reducer<UserState> = (state = initialState, action) => {
     switch (action.type) {
         case USER_SIGNIN_REQUEST:
             return { loading: true }
@@ -147,10 +145,7 @@ export const userUpdateReducer: Reducer<UserState> = (state = {}, action) => {
     }
 }
 
-export const userUpdateProfileReducer: Reducer<UserState> = (
-    state = {},
-    action
-) => {
+export const userUpdateProfileReducer: Reducer<UserState> = (state = {}, action) => {
     switch (action.type) {
         case USER_UPDATE_PROFILE_REQUEST:
             return { loading: true }
@@ -209,6 +204,15 @@ export const userTopSellersListReducer: Reducer<UserListState> = (
                 loading: false,
                 error: action.payload,
             }
+        default:
+            return state
+    }
+}
+
+export const userAddressMapReducer: Reducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_ADDRESS_MAP_CONFIRM:
+            return { address: action.payload }
         default:
             return state
     }

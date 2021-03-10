@@ -85,6 +85,8 @@ interface AdressInterface {
     city: string
     postalCode: string
     country: string
+    lat?: number
+    lng?: number
 }
 
 type CartState = {
