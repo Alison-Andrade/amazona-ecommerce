@@ -33,9 +33,7 @@ import { RootState } from '../store'
 export const signin = (
     email: string,
     password: string
-): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch
-) => {
+): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } })
     api.post('/api/users/signin', { email, password })
         .then((response) => {
@@ -71,9 +69,7 @@ export const register = (
     name: string,
     email: string,
     password: string
-): ThunkAction<void, RootState, unknown, Action<string>> => async (
-    dispatch
-) => {
+): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } })
     api.post('/api/users/register', { name, email, password })
         .then((response) => {

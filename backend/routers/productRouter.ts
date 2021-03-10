@@ -2,6 +2,7 @@ import express from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import data from '../data'
 import Product from '../models/productModel'
+import User from '../models/userModel'
 import { isAdmin, isAuth, isSellerOrAdmin } from '../utils'
 
 const productRouter = express.Router()
@@ -9,6 +10,9 @@ const productRouter = express.Router()
 productRouter.get(
     '/',
     expressAsyncHandler(async (req, res) => {
+        const pageSize = 3
+        const page = Number(req.query.pageNumber) || 1
+
         const seller = String(req.query.seller) || ''
         const name = String(req.query.name) || ''
         const category = String(req.query.category) || ''
@@ -36,6 +40,14 @@ productRouter.get(
                 ? { rating: -1 }
                 : { _id: -1 }
 
+        const count = await Product.count({
+            ...sellerFilter,
+            ...nameFilter,
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter,
+        })
+
         const products = await Product.find({
             ...sellerFilter,
             ...nameFilter,
@@ -45,7 +57,9 @@ productRouter.get(
         })
             .populate('seller', 'seller.name seller.logo')
             .sort(sortOrder)
-        res.json(products)
+            .skip(pageSize * (page - 1))
+            .limit(pageSize)
+        res.json({ products, page, pages: Math.ceil(count / pageSize) })
     })
 )
 
@@ -61,8 +75,19 @@ productRouter.get(
     '/seed',
     expressAsyncHandler(async (req, res) => {
         await Product.remove({})
-        const createdProducts = await Product.insertMany(data.products)
-        res.json(createdProducts)
+        const seller = await User.findOne({ isSeller: true })
+        if (seller) {
+            const products = data.products.map((product) => ({
+                ...product,
+                seller: seller._id,
+            }))
+            const createdProducts = await Product.insertMany(products)
+            res.json(createdProducts)
+        } else {
+            res.status(500).json({
+                message: 'No seller found. First run /api/users/seed',
+            })
+        }
     })
 )
 

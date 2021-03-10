@@ -153,8 +153,8 @@ userRouter.put(
         if (user) {
             user.name = req.body.name || user.name
             user.email = req.body.email || user.email
-            user.isAdmin = req.body.isAdmin
-            user.isSeller = req.body.isSeller
+            user.isAdmin = Boolean(req.body.isAdmin)
+            user.isSeller = Boolean(req.body.isSeller)
             const updatedUser = await user.save()
             res.json({ message: 'User Updated', user: updatedUser })
         } else {

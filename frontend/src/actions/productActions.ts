@@ -27,6 +27,7 @@ import api from '../services/api'
 import { RootState } from '../store'
 
 export const listProducts = ({
+    pageNumber = '',
     seller = '',
     name = '',
     category = '',
@@ -39,7 +40,7 @@ export const listProducts = ({
         type: PRODUCT_LIST_REQUEST,
     })
     api.get(
-        `/api/products?seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+        `/api/products?pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
     )
         .then((response) => {
             const { data } = response

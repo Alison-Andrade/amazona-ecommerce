@@ -40,6 +40,8 @@ type ProductListState = {
     error?: string
     products?: ProductInterface[]
     categories?: string[]
+    page?: number
+    pages?: number
 }
 
 // Type product
