@@ -12,9 +12,7 @@ export default function ProductEditScreen() {
     const history = useHistory()
     const props = useParams<Props>()
     const productId = props.id
-    const productDetails = useSelector(
-        (state: RootState) => state.productDetails
-    )
+    const productDetails = useSelector((state: RootState) => state.productDetails)
     const { error, loading, product } = productDetails
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
@@ -76,7 +74,7 @@ export default function ProductEditScreen() {
             bodyFormData.append('image', file)
             setLoadingUpload(true)
 
-            api.post('/api/uploads', bodyFormData, {
+            api.post('/api/uploads/s3', bodyFormData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Autorization: `Bearer ${userInfo?.token}`,
@@ -100,9 +98,7 @@ export default function ProductEditScreen() {
                 <div>
                     <h1>Edit Product {product?._id}</h1>
                 </div>
-                {errorUpdate && (
-                    <MessageBox variant="danger">{errorUpdate}</MessageBox>
-                )}
+                {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
 
                 {loading ? (
                     <LoadingBox />
@@ -127,9 +123,7 @@ export default function ProductEditScreen() {
                                 id="price"
                                 placeholder="Enter Price"
                                 value={price}
-                                onChange={(e) =>
-                                    setPrice(Number(e.target.value))
-                                }
+                                onChange={(e) => setPrice(Number(e.target.value))}
                             />
                         </div>
                         <div>
@@ -151,9 +145,7 @@ export default function ProductEditScreen() {
                             />
                             {loadingUpload && <LoadingBox />}
                             {errorUpload && (
-                                <MessageBox variant="danger">
-                                    {errorUpload}
-                                </MessageBox>
+                                <MessageBox variant="danger">{errorUpload}</MessageBox>
                             )}
                         </div>
                         <div>
