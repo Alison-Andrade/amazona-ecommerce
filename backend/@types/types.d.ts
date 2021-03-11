@@ -25,7 +25,7 @@ interface Order {
             name: string
             qty: number
             image: string
-            price: string
+            price: number
             product: string
         }
     ]
@@ -36,12 +36,13 @@ interface Order {
         postalCode: string
         country: string
     }
+    createdAt: number
     paymentMethod: string
     itemsPrice: number
     shippingPrice: number
     taxPrice: number
     totalPrice: number
-    user: string
+    user: any
     isPaid: boolean
     paidAt: number
     isDelivered: boolean
